@@ -1,0 +1,9 @@
+services:
+  roadtrip:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: roadtrip
+    restart: unless-stopped
+    ports:
+      - "8095:80"

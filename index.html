@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Road-trip van · Pyrénées 2026 — 3 itinéraires</title>
+<meta name="description" content="Trois itinéraires en van au départ de Josse (40) — rando sportive, spots gratuits, océan en option. 10–14 août 2026.">
+
+<!-- Favicon (montagne SVG inline) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232E4636'/%3E%3Cpath d='M6 24 L13 11 L17 18 L21 9 L26 24 Z' fill='%23ECE6D8'/%3E%3Cpath d='M13 11 L15 15 L11.5 15 Z M21 9 L23.5 15 L19 15 Z' fill='%23BE3A2A'/%3E%3C/svg%3E">
+
+<!-- Open Graph (aperçu de partage WhatsApp / Messenger) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pyrénées en van · 3 itinéraires — Août 2026">
+<meta property="og:description" content="Rando sportive, spots gratuits, océan en option. Départ de Josse, 10–14 août. Choisis ton itinéraire.">
+<meta property="og:image" content="/images/photo-09.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#212a20; --paper:#ECE6D8; --paper-2:#F5F1E7; --line:#cabfa6;
+    --pine:#2E4636; --pine-2:#3C5C47; --muted:#6a6650;
+    --solA:#BE3A2A; --solB:#2C6E94; --solC:#AF7A2C;
+    --blaze:#BE3A2A;
+    --disp:"Oswald",sans-serif; --body:"Newsreader",Georgia,serif; --mono:"Space Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--body);font-size:18px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 22px;}
+  h1,h2,h3,.disp{font-family:var(--disp);font-weight:600;letter-spacing:.01em;line-height:1.05;text-transform:uppercase;margin:0;}
+  .mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;}
+  a{color:var(--pine);text-underline-offset:3px;}
+
+  /* ---------- GR blaze signature ---------- */
+  .blaze{display:inline-block;width:15px;height:24px;border:2px solid #fff;vertical-align:middle;
+    background:linear-gradient(#fff 0 35%,var(--blaze) 35% 100%);box-shadow:0 1px 3px rgba(0,0,0,.25);}
+
+  /* ---------- COVER ---------- */
+  .cover{position:relative;color:#f3efe4;overflow:hidden;
+    background:linear-gradient(180deg,rgba(20,28,20,.30),rgba(20,28,20,.82)),
+      url("/images/photo-11.jpg") center 30%/cover no-repeat,var(--pine);}
+  .cover-inner{max-width:920px;margin:0 auto;padding:74px 22px 40px;}
+  .eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:#e8c9a0;}
+  .cover h1{font-family:var(--disp);font-weight:700;font-size:clamp(2.7rem,8vw,5rem);margin:.18em 0 .1em;letter-spacing:.005em;}
+  .cover .sub{font-family:var(--body);font-size:clamp(1.05rem,2.4vw,1.4rem);max-width:30ch;color:#efe9dc;line-height:1.4;}
+  .coverbar{display:flex;flex-wrap:wrap;gap:0;margin-top:30px;border:1px solid rgba(243,239,228,.4);}
+  .coverbar div{flex:1 1 140px;padding:11px 14px;border-right:1px solid rgba(243,239,228,.22);}
+  .coverbar div:last-child{border-right:none;}
+  .coverbar .k{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:#e8c9a0;text-transform:uppercase;}
+  .coverbar .v{font-family:var(--disp);font-size:1.18rem;letter-spacing:.02em;margin-top:2px;}
+  .photo-note{margin-top:14px;font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:rgba(243,239,228,.6);}
+
+  /* ---------- generic blocks ---------- */
+  section{padding:46px 0;}
+  .lead{font-size:1.18rem;line-height:1.55;}
+  .kicker{display:flex;align-items:center;gap:11px;margin-bottom:7px;}
+  .kicker .mono{color:var(--muted);}
+  h2.big{font-size:clamp(1.7rem,4.4vw,2.5rem);font-weight:700;}
+  p{margin:.7em 0;}
+
+  /* intro essentials */
+  .essentials{background:var(--pine);color:#f1ede2;border-radius:3px;padding:26px 26px 10px;margin-top:8px;}
+  .essentials h3{color:#fff;font-size:1.05rem;letter-spacing:.06em;margin-bottom:6px;}
+  .egrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px 26px;margin:16px 0 18px;}
+  .egrid .k{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;color:#e8c9a0;text-transform:uppercase;}
+  .egrid .v{font-size:1rem;line-height:1.35;color:#f4f0e6;margin-top:3px;}
+
+  /* comparison table */
+  .compare{width:100%;border-collapse:collapse;margin-top:18px;font-size:.96rem;}
+  .compare th,.compare td{text-align:left;padding:13px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .compare thead th{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--ink);}
+  .compare .nm{font-family:var(--disp);text-transform:uppercase;font-size:1rem;letter-spacing:.02em;}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle;}
+
+  /* ---------- SOLUTION ---------- */
+  .sol{border-top:6px solid var(--ac);padding-top:0;}
+  .sol-head{padding:40px 0 8px;}
+  .sol-tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);font-weight:700;}
+  .sol-head h2{font-size:clamp(1.9rem,5vw,2.9rem);font-weight:700;margin:.12em 0 .15em;}
+  .sol-statbar{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);margin:18px 0 22px;background:var(--paper-2);}
+  .sol-statbar div{flex:1 1 110px;padding:10px 13px;border-right:1px solid var(--line);}
+  .sol-statbar div:last-child{border-right:none;}
+  .sol-statbar .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+  .sol-statbar .v{font-family:var(--disp);font-size:1.12rem;letter-spacing:.02em;color:var(--ink);margin-top:1px;}
+
+  figure.ph{margin:0 0 4px;border:1px solid var(--line);background:#ddd;overflow:hidden;border-radius:3px;}
+  figure.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+  figure.ph.hero img{aspect-ratio:16/7;}
+  figure.ph figcaption{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;color:var(--muted);
+    padding:7px 11px;background:var(--paper-2);text-transform:uppercase;}
+  .ph--off{display:none!important;}
+
+  /* day card */
+  .day{display:grid;grid-template-columns:1fr;gap:0;border:1px solid var(--line);border-radius:3px;
+    overflow:hidden;margin:16px 0;background:var(--paper-2);}
+  .day-media figcaption{border-top:1px solid var(--line);}
+  .day-body{padding:18px 20px 20px;}
+  .day-no{display:flex;align-items:center;gap:10px;margin-bottom:3px;}
+  .day-no .num{font-family:var(--disp);font-weight:700;font-size:1.05rem;color:var(--ac);letter-spacing:.04em;}
+  .day-no .ic{width:11px;height:11px;background:var(--ac);border-radius:2px;transform:rotate(45deg);}
+  .day h3{font-size:1.32rem;font-weight:600;margin-bottom:6px;}
+  .route{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--pine);
+    background:#e6f0e6;display:inline-block;padding:5px 10px;border-radius:2px;margin:2px 0 12px;text-transform:none;}
+  .day p{margin:.45em 0;font-size:1rem;line-height:1.5;}
+  .rando{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:2px;margin:13px 0;overflow:hidden;}
+  .rando div{background:var(--paper-2);padding:8px 9px;}
+  .rando .k{font-family:var(--mono);font-size:.56rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+  .rando .v{font-family:var(--disp);font-size:.98rem;letter-spacing:.01em;margin-top:1px;}
+  .dodo{font-size:.92rem;border-left:3px solid var(--ac);padding:3px 0 3px 12px;margin-top:11px;color:#3a3a2c;}
+  .dodo b{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);display:block;}
+  .callout{border:1px dashed var(--ac);border-radius:3px;padding:13px 16px;margin:18px 0;background:rgba(0,0,0,.012);font-size:.95rem;}
+  .callout b{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);}
+  .maplink{display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+    border:1.5px solid var(--ac);color:var(--ac);padding:9px 15px;border-radius:2px;text-decoration:none;margin-top:6px;}
+  .maplink:hover{background:var(--ac);color:#fff;}
+
+  /* appendix */
+  .appendix{background:var(--pine);color:#eee9dc;margin-top:30px;}
+  .appendix .wrap{padding-top:48px;padding-bottom:54px;}
+  .appendix h2{color:#fff;}
+  .appendix h3{color:#fff;font-size:1.15rem;margin:30px 0 8px;letter-spacing:.05em;}
+  .appendix p,.appendix li{color:#e7e2d4;}
+  .appendix a{color:#e8c9a0;}
+  .checklist{columns:2;column-gap:34px;font-size:.95rem;padding-left:0;list-style:none;margin-top:8px;}
+  .checklist li{break-inside:avoid;padding:4px 0 4px 22px;position:relative;}
+  .checklist li::before{content:"";position:absolute;left:0;top:11px;width:9px;height:9px;border:1.5px solid #e8c9a0;border-radius:2px;}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:8px 34px;}
+  .links{font-family:var(--mono);font-size:.78rem;letter-spacing:.02em;line-height:2;}
+  hr.rule{border:none;border-top:1px solid var(--line);margin:0;}
+  .foot{text-align:center;padding:26px 0 40px;color:var(--muted);font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;}
+
+  @media (max-width:680px){
+    body{font-size:17px;}
+    .checklist{columns:1;} .twocol{grid-template-columns:1fr;}
+    .rando{grid-template-columns:repeat(2,1fr);}
+    .coverbar div{flex:1 1 50%;}
+  }
+  @media print{
+    body{background:#fff;}
+    .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .sol{break-before:page;} .appendix{break-before:page;}
+    .day,.callout,figure.ph{break-inside:avoid;}
+    .maplink{display:none;}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<header class="cover">
+  <div class="cover-inner">
+    <div class="eyebrow">Carnet d'itinérance · Sud-Ouest · Août 2026</div>
+    <h1>Pyrénées<br>en van</h1>
+    <p class="sub">Trois itinéraires au départ de Josse — rando sportive, spots gratuits, océan en option.</p>
+    <div class="coverbar">
+      <div><div class="k">Équipage</div><div class="v">3–4 gars</div></div>
+      <div><div class="k">Dates</div><div class="v">10–14 août</div></div>
+      <div><div class="k">Van</div><div class="v">670 € · 200 km/j</div></div>
+      <div><div class="k">Dodo</div><div class="v">Gratuit</div></div>
+    </div>
+    <div class="photo-note">Consultable hors-ligne — photos incluses dans la page.</div>
+  </div>
+</header>
+
+<!-- ============ INTRO ============ -->
+<section class="wrap" id="intro">
+  <div class="kicker"><span class="blaze"></span><span class="mono">Avant de partir</span></div>
+  <h2 class="big">Le brief, en clair</h2>
+  <p class="lead">Départ de Josse (40), à 20 min de l'océan et 2 h des sommets. Objectif&nbsp;: marcher fort (5–7 h, du dénivelé, mais zéro escalade ni matériel technique), dormir gratuit, et finir sur une bonne note. Trois versions selon l'envie du groupe — choisissez, je vous monte la fiche route définitive.</p>
+
+  <div class="essentials">
+    <h3>L'essentiel</h3>
+    <div class="egrid">
+      <div><div class="k">Budget van / pers.</div><div class="v">≈ 168 € (670 € ÷ 4)</div></div>
+      <div><div class="k">Km inclus</div><div class="v">800 à 1000 km (200/j)</div></div>
+      <div><div class="k">Carburant estimé</div><div class="v">80 à 110 € au total</div></div>
+      <div><div class="k">Nuits</div><div class="v">0 à 40 € (objectif gratuit)</div></div>
+      <div><div class="k">Règle d'or dodo</div><div class="v">Dormir dans le van = toléré ; rien dehors</div></div>
+      <div><div class="k">Appli reine</div><div class="v">Park4Night (+ iOverlander)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARATIF ============ -->
+<section class="wrap" id="comparatif">
+  <div class="kicker"><span class="blaze"></span><span class="mono">Vue d'ensemble</span></div>
+  <h2 class="big">Les trois en un coup d'œil</h2>
+  <table class="compare">
+    <thead>
+      <tr><th>Itinéraire</th><th>Durée</th><th>Km van</th><th>Océan</th><th>Caractère</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="dot" style="background:var(--solA)"></span><span class="nm">A · Pays Basque sauvage</span></td>
+        <td>5 j / 4 n</td><td>~395 km</td><td>Côte basque</td>
+        <td>Gorges, passerelles, un sommet, la plus belle mer. Le plus équilibré.</td>
+      </tr>
+      <tr>
+        <td><span class="dot" style="background:var(--solB)"></span><span class="nm">B · Brèche de Roland</span></td>
+        <td>5 j / 4 n</td><td>~700 km</td><td>Côte landaise</td>
+        <td>Le plus iconique et le plus haut. Plus de route (2 grosses étapes).</td>
+      </tr>
+      <tr>
+        <td><span class="dot" style="background:var(--solC)"></span><span class="nm">C · 100 % Vallée d'Ossau</span></td>
+        <td>4 j / 3 n</td><td>~290 km</td><td>Aucun</td>
+        <td>Camp de base, un max de marche, un minimum de van. Le plus posé.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ SOLUTION A ============ -->
+<section class="sol" id="sol-a" style="--ac:var(--solA)">
+  <div class="wrap">
+    <div class="sol-head">
+      <div class="sol-tag">Itinéraire A</div>
+      <h2>Pays Basque sauvage<br>+ Pic d'Anie + Côte basque</h2>
+      <p>Gorges et passerelles himalayennes de la Haute-Soule, l'ascension du Pic d'Anie pour la claque « haute montagne », puis détente sur la plus belle côte. Tout reste à l'ouest&nbsp;: zéro retour en arrière, et on finit les pieds dans l'eau.</p>
+      <div class="sol-statbar">
+        <div><div class="k">Durée</div><div class="v">5 j / 4 n</div></div>
+        <div><div class="k">Route van</div><div class="v">~395 km</div></div>
+        <div><div class="k">Plus gros D+</div><div class="v">+1100 m</div></div>
+        <div><div class="k">Niveau</div><div class="v">Sportif</div></div>
+        <div><div class="k">Océan</div><div class="v">Côte basque</div></div>
+      </div>
+      <figure class="ph hero"><img loading="lazy" alt="Passerelle d'Holzarté au-dessus des gorges" src="/images/photo-04.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Passerelle d'Holzarté — Haute-Soule</figcaption></figure>
+    </div>
+
+    <!-- J1 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Gorges de Kakuetta" src="/images/photo-08.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Gorges de Kakuetta</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 1 · Dim. 10 août</span></div>
+        <h3>Josse → Haute-Soule</h3>
+        <div class="route">Josse → Mauléon → Larrau · ~130 km · ~2 h</div>
+        <p>Récup du van, gros plein d'eau / gasoil / courses (rare et cher en montagne). Mise en jambes douce l'après-midi dans les gorges de Kakuetta&nbsp;: passerelles, cascade, canyon vert et frais.</p>
+        <div class="rando">
+          <div><div class="k">Distance</div><div class="v">~5 km</div></div>
+          <div><div class="k">D+</div><div class="v">+250 m</div></div>
+          <div><div class="k">Durée</div><div class="v">~2 h</div></div>
+          <div><div class="k">Niveau</div><div class="v">Facile</div></div>
+        </div>
+        <div class="dodo"><b>Dodo gratuit</b>Secteur Larrau / Port de Larrau / Sainte-Engrâce — parkings de cols et de fond de vallée. À repérer sur Park4Night.</div>
+      </div>
+    </article>
+
+    <!-- J2 -->
+    <article class="day">
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 2 · Lun. 11 août</span></div>
+        <h3>Boucle Holzarté + Olhadübi</h3>
+        <div class="route">Aller-retour depuis le parking de Logibar</div>
+        <p>Le morceau de bravoure&nbsp;: montée raide en forêt jusqu'à la passerelle d'Holzarté suspendue au-dessus du vide, puis boucle par la passerelle d'Olhadübi le long des gorges. Rochers parfois glissants et un peu de gaz sous les pieds, mais aucune escalade — juste à éviter si l'un de vous est sujet au vertige.</p>
+        <div class="rando">
+          <div><div class="k">Distance</div><div class="v">~13 km</div></div>
+          <div><div class="k">D+</div><div class="v">+750 m</div></div>
+          <div><div class="k">Durée</div><div class="v">5–6 h</div></div>
+          <div><div class="k">Niveau</div><div class="v">Sportif</div></div>
+        </div>
+        <p>Le soir, petit transfert (~40 km) vers le massif d'Anie pour dormir au pied de la montagne et attaquer frais.</p>
+        <div class="dodo"><b>Dodo gratuit</b>La Pierre-Saint-Martin / Lescun — grands parkings d'altitude, vue sur le cirque.</div>
+      </div>
+    </article>
+
+    <!-- J3 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Pic d'Anie" src="/images/photo-14.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Pic d'Anie (2504 m) — paysage karstique</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 3 · Mar. 12 août</span></div>
+        <h3>Pic d'Anie (2504 m)</h3>
+        <div class="route">Depuis La Pierre-Saint-Martin · paysage lunaire de calcaire</div>
+        <p>La dose « grand spectacle »&nbsp;: montée cairnée dans un karst lunaire jusqu'au sommet, panorama immense sur les Pyrénées et l'océan au loin. Ça grimpe sec mais sans technique.</p>
+        <div class="rando">
+          <div><div class="k">Distance</div><div class="v">~15 km</div></div>
+          <div><div class="k">D+</div><div class="v">+1100 m</div></div>
+          <div><div class="k">Durée</div><div class="v">~6 h 30</div></div>
+          <div><div class="k">Niveau</div><div class="v">Sportif +</div></div>
+        </div>
+        <div class="callout"><b>À savoir</b><br>À faire par beau temps uniquement&nbsp;: sur le karst, le brouillard rend l'orientation piégeuse — suis bien les cairns. Repli si météo douteuse&nbsp;: <b>Lac et Aiguilles d'Ansabère</b> depuis Lescun (~5 h, +700 m), flèches rocheuses spectaculaires.</div>
+        <div class="dodo"><b>Dodo gratuit</b>Cirque de Lescun — un des plus beaux des Pyrénées, spots van avec vue.</div>
+      </div>
+    </article>
+
+    <!-- J4 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Plage d'Hendaye" src="/images/photo-01.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Plage d'Hendaye</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 4 · Mer. 13 août</span></div>
+        <h3>Vallée d'Aspe → Côte basque</h3>
+        <div class="route">Lescun → Oloron → St-Jean-Pied-de-Port → Hendaye · ~150 km · ~2 h 15</div>
+        <p>Bascule vers l'océan par les petites routes. Hendaye&nbsp;: 3 km de sable, vagues plutôt douces, ambiance posée — parfait pour des kiffeurs sans planche. Fin d'après-midi et soirée les pieds dans l'eau.</p>
+        <div class="dodo"><b>Dodo gratuit</b>Front de mer très réglementé la nuit en été&nbsp;: cherche en retrait (baie de Txingudi, secteurs intérieurs) sur Park4Night, ou une petite aire pour l'eau et la douche.</div>
+      </div>
+    </article>
+
+    <!-- J5 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Saint-Jean-de-Luz" src="/images/photo-06.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Saint-Jean-de-Luz</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 5 · Jeu. 14 août</span></div>
+        <h3>Corniche basque → retour Josse</h3>
+        <div class="route">Hendaye → Saint-Jean-de-Luz → Josse · ~75 km</div>
+        <p>Dernière demi-journée chill mais spectaculaire&nbsp;: le sentier du littoral en balcon au-dessus des falaises, baignade dans la baie abritée de Saint-Jean-de-Luz, déjeuner en ville, puis retour à Josse (garde la marge&nbsp;: nettoyage + plein exigés à la restitution).</p>
+        <div class="rando">
+          <div><div class="k">Distance</div><div class="v">~8 km</div></div>
+          <div><div class="k">D+</div><div class="v">+200 m</div></div>
+          <div><div class="k">Durée</div><div class="v">2–3 h</div></div>
+          <div><div class="k">Niveau</div><div class="v">Facile</div></div>
+        </div>
+      </div>
+    </article>
+
+    <a class="maplink" href="https://www.google.com/maps/dir/43.6409,-1.2243/42.9987,-0.8405/43.0048,-0.9229/42.9444,-0.7208/42.9361,-0.6752/43.3742,-1.7801/43.3905,-1.6632/43.6409,-1.2243" target="_blank" rel="noopener">▸ Ouvrir l'itinéraire A dans Maps</a>
+  </div>
+</section>
+
+<!-- ============ SOLUTION B ============ -->
+<section class="sol" id="sol-b" style="--ac:var(--solB)">
+  <div class="wrap">
+    <div class="sol-head">
+      <div class="sol-tag">Itinéraire B</div>
+      <h2>Brèche de Roland<br>+ Néouvielle + Côte landaise</h2>
+      <p>La version la plus iconique et la plus haute&nbsp;: le cirque de Gavarnie classé UNESCO, la faille mythique à 2807 m, les lacs turquoise du Néouvielle, puis détente sur la côte landaise. La contrepartie&nbsp;: c'est l'extrême est, donc deux journées de route appuyées et un océan landais (la côte basque est trop loin de cet axe).</p>
+      <div class="sol-statbar">
+        <div><div class="k">Durée</div><div class="v">5 j / 4 n</div></div>
+        <div><div class="k">Route van</div><div class="v">~700 km</div></div>
+        <div><div class="k">Plus gros D+</div><div class="v">+900 m</div></div>
+        <div><div class="k">Niveau</div><div class="v">Sportif / alpin</div></div>
+        <div><div class="k">Océan</div><div class="v">Côte landaise</div></div>
+      </div>
+      <figure class="ph hero"><img loading="lazy" alt="Brèche de Roland" src="/images/photo-09.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>La Brèche de Roland (2807 m) — Gavarnie</figcaption></figure>
+    </div>
+
+    <!-- J1 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Cirque de Gavarnie et sa grande cascade" src="/images/photo-13.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Cirque de Gavarnie — Grande Cascade</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 1 · Dim. 10 août</span></div>
+        <h3>Josse → Gavarnie</h3>
+        <div class="route">Josse → Pau → Lourdes → Gavarnie · ~190 km · ~3 h</div>
+        <p>Grosse journée de route, puis marche facile dans le cirque jusqu'au pied de la Grande Cascade (423 m, la plus haute de France). Mise en jambes spectaculaire.</p>
+        <div class="rando">
+          <div><div class="k">Distance</div><div class="v">~10 km</div></div>
+          <div><div class="k">D+</div><div class="v">+350 m</div></div>
+          <div><div class="k">Durée</div><div class="v">~2 h 30</div></div>
+          <div><div class="k">Niveau</div><div class="v">Facile</div></div>
+        </div>
+        <div class="dodo"><b>Dodo gratuit</b>Vallée de Gèdre / Gavarnie, ou le Col des Tentes (parking à 2208 m, spot van mythique).</div>
+      </div>
+    </article>
+
+    <!-- J2 -->
+    <article class="day">
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 2 · Lun. 11 août</span></div>
+        <h3>Brèche de Roland (2807 m)</h3>
+        <div class="route">Col des Tentes → refuge des Sarradéts → Brèche</div>
+        <p>La rando-signature des Pyrénées&nbsp;: montée vers la faille géante de 40 m taillée dans la falaise frontalière, un pied en France, un pied en Espagne. Sportif et sans escalade, mais c'est de la <b>haute montagne</b>.</p>
+        <div class="rando">
+          <div><div class="k">Distance</div><div class="v">~13 km</div></div>
+          <div><div class="k">D+</div><div class="v">+900 m</div></div>
+          <div><div class="k">Durée</div><div class="v">6–7 h</div></div>
+          <div><div class="k">Niveau</div><div class="v">Sportif +</div></div>
+        </div>
+        <div class="callout"><b>À savoir</b><br>Par beau temps uniquement, et il reste souvent un névé sous la brèche (prudence, parfois glissant). Repli&nbsp;: montée au <b>refuge des Espuguettes / plateau de Bellevue</b> au-dessus du cirque (~5 h, +600 m).</div>
+        <div class="dodo"><b>Dodo gratuit</b>Re-nuit secteur Gavarnie / Col des Tentes.</div>
+      </div>
+    </article>
+
+    <!-- J3 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Lacs du Néouvielle" src="/images/photo-05.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Lac d'Aumar — réserve du Néouvielle</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 3 · Mar. 12 août</span></div>
+        <h3>Lacs de Néouvielle</h3>
+        <div class="route">Gavarnie → Néouvielle · ~65 km · boucle Aumar / Aubert / Laquettes</div>
+        <p>Un autre visage de la haute montagne&nbsp;: lacs turquoise et pins à crochets dans une réserve naturelle. Version sportive en montant vers le Col d'Aubert.</p>
+        <div class="rando">
+          <div><div class="k">Distance</div><div class="v">~10 km</div></div>
+          <div><div class="k">D+</div><div class="v">+600 m</div></div>
+          <div><div class="k">Durée</div><div class="v">5–6 h</div></div>
+          <div><div class="k">Niveau</div><div class="v">Modéré +</div></div>
+        </div>
+        <div class="callout"><b>Accès régulé l'été</b><br>Voiture autorisée jusqu'aux lacs avant ~9 h 30, sinon navette depuis le Lac d'Orédon (parking ~8,50 €). Arrive tôt.</div>
+        <div class="dodo"><b>Dodo gratuit</b>Secteur Orédon / Fabian / Saint-Lary (plus bas).</div>
+      </div>
+    </article>
+
+    <!-- J4 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Plage d'Hossegor" src="/images/photo-02.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Plage d'Hossegor</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 4 · Mer. 13 août</span></div>
+        <h3>Néouvielle → Côte landaise</h3>
+        <div class="route">Saint-Lary → A64 → Hossegor / Capbreton · ~210–220 km</div>
+        <p>La plus longue route, c'est le prix du grand est&nbsp;: elle mord un peu sur le forfait 200 km (quelques km facturés, autant le savoir). Récompense l'après-midi&nbsp;: grandes plages landaises, forêt de pins, ambiance posée.</p>
+        <div class="dodo"><b>Dodo gratuit</b>En retrait du front de mer (forêt landaise, parkings intérieurs) sur Park4Night.</div>
+      </div>
+    </article>
+
+    <!-- J5 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Port de Capbreton" src="/images/photo-03.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Port de Capbreton</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 5 · Jeu. 14 août</span></div>
+        <h3>Plage → retour Josse</h3>
+        <div class="route">Capbreton → Josse · ~40 km</div>
+        <p>Matinée océan&nbsp;: estacade de Capbreton, poisson frais au retour des pêcheurs, dernier bain, puis retour tranquille à Josse pour rendre le van.</p>
+      </div>
+    </article>
+
+    <a class="maplink" href="https://www.google.com/maps/dir/43.6409,-1.2243/42.6935,-0.0045/42.6912,-0.0343/42.8436,0.1477/43.6674,-1.4417/43.6409,-1.2243" target="_blank" rel="noopener">▸ Ouvrir l'itinéraire B dans Maps</a>
+  </div>
+</section>
+
+<!-- ============ SOLUTION C ============ -->
+<section class="sol" id="sol-c" style="--ac:var(--solC)">
+  <div class="wrap">
+    <div class="sol-head">
+      <div class="sol-tag">Itinéraire C</div>
+      <h2>100 % montagne<br>Vallée d'Ossau · 4 jours</h2>
+      <p>Pas d'océan, donc on reste planté dans le plus bel écrin proche de Josse&nbsp;: la vallée d'Ossau, autour de son pic emblématique. Camp de base, deux grosses randos depuis quasi le même point, un minimum de van. L'option la plus reposante côté conduite, la plus dense côté marche.</p>
+      <div class="sol-statbar">
+        <div><div class="k">Durée</div><div class="v">4 j / 3 n</div></div>
+        <div><div class="k">Route van</div><div class="v">~290 km</div></div>
+        <div><div class="k">Plus gros D+</div><div class="v">+1000 m</div></div>
+        <div><div class="k">Niveau</div><div class="v">Sportif</div></div>
+        <div><div class="k">Océan</div><div class="v">Aucun</div></div>
+      </div>
+      <figure class="ph hero"><img loading="lazy" alt="Pic du Midi d'Ossau" src="/images/photo-11.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Pic du Midi d'Ossau (2884 m)</figcaption></figure>
+    </div>
+
+    <!-- J1 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Lac de Bious-Artigues" src="/images/photo-10.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Lac de Bious-Artigues</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 1 · Dim. 10 août</span></div>
+        <h3>Josse → Vallée d'Ossau</h3>
+        <div class="route">Josse → Pau → Laruns → Bious-Artigues · ~130 km · ~2 h</div>
+        <p>Installation au lac de Bious-Artigues, camp de base face au pic. Mise en jambes tranquille au bord de l'eau.</p>
+        <div class="dodo"><b>Dodo gratuit</b>Gabas (plus bas) ou le Col du Pourtalet (grand parking d'altitude, vues magnifiques).</div>
+      </div>
+    </article>
+
+    <!-- J2 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Refuge de Pombie sous le Pic du Midi d'Ossau" src="/images/photo-12.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Refuge de Pombie, face sud du pic</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 2 · Lun. 11 août</span></div>
+        <h3>Tour du Pic du Midi d'Ossau</h3>
+        <div class="route">Cols de Suzon & Peyreget · passage au refuge de Pombie</div>
+        <p>La rando reine&nbsp;: le grand tour de l'emblème des Pyrénées-Atlantiques (2884 m), vu sous toutes ses faces. Marmottes garanties. Sportif et sans technique.</p>
+        <div class="rando">
+          <div><div class="k">Distance</div><div class="v">~16 km</div></div>
+          <div><div class="k">D+</div><div class="v">+950 m</div></div>
+          <div><div class="k">Durée</div><div class="v">6–7 h</div></div>
+          <div><div class="k">Niveau</div><div class="v">Sportif</div></div>
+        </div>
+        <div class="dodo"><b>Dodo gratuit</b>Re-nuit en vallée (Gabas / Bious / Pourtalet).</div>
+      </div>
+    </article>
+
+    <!-- J3 -->
+    <article class="day">
+      <figure class="ph day-media"><img loading="lazy" alt="Lacs d'Ayous et reflet du Pic du Midi d'Ossau" src="/images/photo-07.jpg" onerror="this.closest('.ph').classList.add('ph--off')"><figcaption>Lacs d'Ayous — le reflet le plus célèbre des Pyrénées</figcaption></figure>
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 3 · Mar. 12 août</span></div>
+        <h3>Boucle des Lacs d'Ayous</h3>
+        <div class="route">Depuis Bious-Artigues · lac Gentau face au pic</div>
+        <p>La photo des Pyrénées&nbsp;: le lac Gentau qui reflète le Pic du Midi d'Ossau. Baignade possible, refuge sur place. Prolongement possible vers le Col d'Ayous pour plus de dénivelé.</p>
+        <div class="rando">
+          <div><div class="k">Distance</div><div class="v">~12 km</div></div>
+          <div><div class="k">D+</div><div class="v">+550 m</div></div>
+          <div><div class="k">Durée</div><div class="v">~5 h</div></div>
+          <div><div class="k">Niveau</div><div class="v">Modéré +</div></div>
+        </div>
+        <div class="dodo"><b>Dodo gratuit</b>Dernière nuit en vallée d'Ossau.</div>
+      </div>
+    </article>
+
+    <!-- J4 -->
+    <article class="day">
+      <div class="day-body">
+        <div class="day-no"><span class="ic"></span><span class="num">Jour 4 · Mer. 13 août</span></div>
+        <h3>Retour Josse</h3>
+        <div class="route">Laruns → Pau → Josse · ~130 km</div>
+        <p>Petite rando au lever si l'envie est là (tour du lac, cascade), café et marché à Laruns (mercredi/samedi), puis descente pour rendre le van.</p>
+        <div class="callout"><b>Bon à savoir</b><br>Tu as une grosse marge en km (290 sur 800). Tu peux sans souci basculer un jour côté vallée d'Aspe (Cirque de Lescun, Chemin de la Mâture) pour varier les décors, ou caler une 3ᵉ grosse rando.</div>
+      </div>
+    </article>
+
+    <a class="maplink" href="https://www.google.com/maps/dir/43.6409,-1.2243/42.8678,-0.4530/42.85,-0.4333/42.8484,-0.4912/42.9882,-0.4264/43.6409,-1.2243" target="_blank" rel="noopener">▸ Ouvrir l'itinéraire C dans Maps</a>
+  </div>
+</section>
+
+<!-- ============ APPENDIX ============ -->
+<div class="appendix">
+  <div class="wrap">
+    <div class="kicker"><span class="blaze"></span><span class="mono" style="color:#e8c9a0">Le manuel de bord</span></div>
+    <h2 class="big">Valable pour les trois</h2>
+
+    <h3>Dormir gratuit, la vraie méthode</h3>
+    <p><b>Stationnement ≠ camping sauvage.</b> Dormir <em>dans</em> le van sur un parking autorisé est toléré quasi partout (sauf panneau). Sortir auvent, table, chaises = camping sauvage = souvent interdit, surtout sur le littoral et en parc national. Donc&nbsp;: on dort discret, rien dehors, on arrive tard, on part tôt, on ne laisse aucune trace.</p>
+    <p><b>Les apps :</b> Park4Night (le standard, avis et photos récents — filtre « gratuit » et lis les derniers commentaires), en complément iOverlander ou CampingCar-Infos.</p>
+    <div class="twocol">
+      <p><b>Là où ça passe :</b> cols d'altitude (Pourtalet, Aubisque, Col des Tentes), parkings de fond de vallée, forêt landaise en retrait des plages.</p>
+      <p><b>Là où ça coince :</b> front de mer des stations basques/landaises la nuit en été (panneaux + barres de hauteur), zone cœur du parc national.</p>
+    </div>
+
+    <h3>Météo & sécurité montagne</h3>
+    <p>Même mi-août&nbsp;: 5–10 °C au petit matin en altitude, et orages fréquents l'après-midi. <b>Partez tôt</b> (idéalement avant 8 h)&nbsp;: ça résout le parking <em>et</em> l'orage. Pour les grosses randos d'altitude (Anie, Brèche), vérifiez la veille la météo montagne et l'état des névés ; renoncez ou prenez le repli sans hésiter si le temps tourne.</p>
+
+    <h3>Eau, ravito, intendance</h3>
+    <p>Gros plein de courses à Dax/Josse avant de monter (picnics de rando, petit-déj). Eau&nbsp;: robinets de cimetières, fontaines de villages, aires de service — repérés sur Park4Night. À 3–4 avec glacière + réchaud, vous mangez pour presque rien. Répulsif moustiques utile le soir côté forêt landaise.</p>
+
+    <h3>Budget repère</h3>
+    <div class="twocol">
+      <p>Van&nbsp;: 670 € ÷ 4 ≈ <b>168 €/pers.</b><br>Carburant&nbsp;: ~80 € (Ossau) à ~110 € (Brèche).</p>
+      <p>Nuits&nbsp;: 0 € en visant le gratuit, ou 8–12 €/nuit si vous prenez une aire pour les services.<br>Parkings randos&nbsp;: 0 à 8,50 €/jour selon les sites.</p>
+    </div>
+
+    <h3>Checklist matériel</h3>
+    <ul class="checklist">
+      <li>Chaussures de rando montantes (rodées !)</li>
+      <li>Bâtons de marche</li>
+      <li>Sac à dos 25–30 L</li>
+      <li>Veste imperméable + polaire</li>
+      <li>Casquette, lunettes, crème solaire</li>
+      <li>2 L d'eau/pers. + pastilles purifiantes</li>
+      <li>Barres / en-cas pour chaque rando</li>
+      <li>Lampe frontale</li>
+      <li>Trousse 1er secours + couverture de survie</li>
+      <li>Appli rando hors-ligne (IGN, Visorando)</li>
+      <li>Batterie externe + câbles</li>
+      <li>Maillot + serviette (lacs & océan)</li>
+      <li>Sandales / claquettes</li>
+      <li>Réchaud + gaz + popote</li>
+      <li>Glacière</li>
+      <li>Sacs poubelle (on remballe tout)</li>
+      <li>Papier toilette + petit sac</li>
+      <li>Répulsif moustiques</li>
+      <li>Adaptateur allume-cigare / multiprise</li>
+      <li>Un peu d'espèces (aires, parkings)</li>
+    </ul>
+
+    <h3>Liens utiles</h3>
+    <div class="links">
+      Park4Night — park4night.com<br>
+      Météo montagne — meteofrance.com (rubrique Montagne)<br>
+      Refuges (réservation) — ffcamp.fr<br>
+      Réserve du Néouvielle / navette — valleedaure.com<br>
+      Grand Site Pont d'Espagne & vallées — cauterets.com
+    </div>
+  </div>
+</div>
+
+<div class="foot">Carnet préparé pour le road-trip · Josse → Pyrénées · 10–14 août 2026 · Bon trip 🏔️</div>
+
+</body>
+</html>
