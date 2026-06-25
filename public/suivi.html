@@ -4,78 +4,70 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Suivi du voyage · Pyrénées en van 2026</title>
-<meta name="description" content="Suivi en direct du road-trip : où on en est, dernier point d'arrêt, avancée jour par jour.">
+<meta name="description" content="Suivi en direct du road-trip : le van avance d'étape en étape. Où on en est, en temps réel.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232E4636'/%3E%3Cpath d='M6 24 L13 11 L17 18 L21 9 L26 24 Z' fill='%23ECE6D8'/%3E%3Cpath d='M13 11 L15 15 L11.5 15 Z M21 9 L23.5 15 L19 15 Z' fill='%23BE3A2A'/%3E%3C/svg%3E">
 <meta property="og:title" content="Suivi du voyage · Pyrénées en van 2026">
-<meta property="og:description" content="Où en est le van, en temps réel.">
+<meta property="og:description" content="Le van avance d'étape en étape — suis l'aventure en direct.">
 <meta property="og:image" content="/images/photo-05.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<!-- Leaflet (carte open-source) -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<section class="wrap" style="padding-top:34px;">
+<section class="wrap" style="padding-top:30px;">
   <div class="kicker"><span class="blaze"></span><span class="mono">En direct</span></div>
-  <h2 class="big">Où on en est</h2>
+  <h2 class="big">La progression du van</h2>
+  <p class="hint" style="margin-top:4px;">Le van avance d'étape en étape. L'équipage valide chaque étape ; les proches suivent l'aventure en direct.</p>
 
-  <!-- Bandeau position actuelle -->
-  <div class="live-banner">
-    <span class="live-dot"></span><span class="mono" style="color:#e8c9a0;">Dernier point d'arrêt</span>
-    <div class="where" id="liveWhere">…</div>
-    <div class="note" id="liveNote"></div>
-    <div class="ts" id="liveTs"></div>
+  <!-- Barre de progression globale -->
+  <div class="prog-wrap">
+    <div class="prog-bar"><div class="prog-fill" id="progFill"></div>
+      <div class="prog-van" id="progVan">
+        <svg viewBox="0 0 80 48"><rect x="5" y="13" width="50" height="23" rx="5" fill="#BE3A2A"/><path d="M55 16 h9 l11 9 v11 h-20 z" fill="#8a2a1e"/><rect x="11" y="18" width="13" height="9" rx="2" fill="#fff"/><rect x="28" y="18" width="13" height="9" rx="2" fill="#fff"/><rect x="58" y="20" width="11" height="8" rx="2" fill="#fff"/><circle cx="22" cy="38" r="6" fill="#212a20"/><circle cx="60" cy="38" r="6" fill="#212a20"/></svg>
+      </div>
+    </div>
+    <div class="prog-meta"><span id="progCount">0 / 14</span><span id="progPct">0 %</span></div>
   </div>
 
-  <!-- Carte -->
-  <div id="map"></div>
+  <!-- L'étape EN COURS, en grand (le "niveau" actuel) -->
+  <div class="stage-now" id="stageNow"></div>
 
-  <!-- Avancée jour par jour -->
-  <div class="track" id="track"></div>
+  <!-- Note d'équipage -->
+  <div class="crew-note" id="crewNote"></div>
+</section>
 
-  <!-- Panneau d'édition (déverrouillé par mot de passe) -->
+<!-- Sélecteur de niveau (toutes les étapes) -->
+<section class="wrap" style="padding-top:6px;">
+  <div class="kicker"><span class="mono">Carte des étapes</span></div>
+  <h3 style="font-size:1.15rem;margin-bottom:6px;">Sélecteur de niveau</h3>
+  <p class="hint">Clique une étape pour y amener le van (revenir en arrière, ou sauter une étape).</p>
+  <div class="levels" id="levels"></div>
+</section>
+
+<!-- Panneau équipage -->
+<section class="wrap" style="padding-top:6px;">
   <div class="edit-panel" id="editPanel">
     <h3>🔒 Espace équipage</h3>
     <div id="lockView">
-      <p class="hint">Réservé aux gars du van pour mettre à jour le suivi. Les proches voient tout en lecture seule.</p>
-      <div class="field" style="max-width:320px;">
-        <label>Mot de passe équipage</label>
-        <input type="password" id="pwd" placeholder="••••••••">
-      </div>
+      <p class="hint">Réservé aux gars du van. Les proches voient tout en lecture seule.</p>
+      <div class="field" style="max-width:320px;"><label>Mot de passe équipage</label><input type="password" id="pwd" placeholder="••••••••"></div>
       <button class="btn" id="unlockBtn">Déverrouiller</button>
       <span class="hint" id="authMsg"></span>
     </div>
-
     <div id="editView" class="hide">
-      <p class="hint" style="color:var(--pine);">✓ Déverrouillé — tes modifs sont visibles par tout le monde.</p>
-
-      <h3 style="margin-top:16px;font-size:1rem;">Mettre à jour l'avancée</h3>
-      <div id="dayEditors"></div>
-
-      <h3 style="margin-top:20px;font-size:1rem;">Poser un nouveau point d'arrêt</h3>
-      <div class="field"><label>Où êtes-vous ? (nom du lieu)</label><input type="text" id="stopLabel" placeholder="Ex : Col des Tentes"></div>
-      <div class="row">
-        <div class="field"><label>Latitude</label><input type="text" id="stopLat" placeholder="42.7136"></div>
-        <div class="field"><label>Longitude</label><input type="text" id="stopLng" placeholder="-0.0509"></div>
-      </div>
-      <div class="field"><label>Petit mot (optionnel)</label><input type="text" id="stopNote" placeholder="Météo top, on attaque la Brèche demain"></div>
-      <div class="row" style="max-width:520px;">
-        <button class="btn alt" id="useGps" type="button">📍 Utiliser ma position GPS</button>
-        <button class="btn sol" id="postStop" type="button">Poser le point</button>
-      </div>
-      <span class="hint" id="stopMsg"></span>
-
-      <p style="margin-top:18px;"><button class="btn alt" id="lockBtn" type="button">Verrouiller</button></p>
+      <p class="hint" style="color:var(--pine);">✓ Déverrouillé — tes actions sont visibles par tout le monde.</p>
+      <div class="field" style="max-width:520px;"><label>Petit mot d'équipage (optionnel)</label><input type="text" id="noteInput" placeholder="Météo top, on attaque la Brèche !"></div>
+      <button class="btn alt" id="saveNote" type="button">Enregistrer le mot</button>
+      <p style="margin-top:14px;"><button class="btn alt" id="lockBtn" type="button">Verrouiller</button>
+        <button class="btn alt" id="resetBtn" type="button" style="border-color:var(--solA);color:var(--solA);">Tout réinitialiser</button></p>
     </div>
   </div>
 </section>
 
 <div class="foot">Suivi live · Pyrénées en van · 10–13 août 2026 🏔️</div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="/js/nav.js"></script>
 <script src="/js/suivi.js"></script>
 </body>

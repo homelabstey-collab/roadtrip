@@ -1,88 +1,100 @@
 // ─────────────────────────────────────────────────────────────
-//  Suivi du voyage — carte + polling + édition protégée
+//  Suivi "progression de jeu" — le van avance d'étape en étape
 // ─────────────────────────────────────────────────────────────
 let PWD = sessionStorage.getItem('roadtrip_pwd') || null;
-let map, marker, trail;
-const DAY_STATUS = { todo: 'À venir', current: 'En cours', done: 'Fait' };
 
-// ── Carte Leaflet ───────────────────────────────────────────
-function initMap() {
-  map = L.map('map', { scrollWheelZoom: false }).setView([42.78, 0.05], 9);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18, attribution: '© OpenStreetMap',
-  }).addTo(map);
-}
+const TYPE_META = {
+  route:  { ic: '🚐', label: 'Route' },
+  ravito: { ic: '🛒', label: 'Ravito' },
+  rando:  { ic: '🥾', label: 'Rando' },
+  manger: { ic: '🍽️', label: 'Manger' },
+  dodo:   { ic: '🌙', label: 'Dodo' },
+  visite: { ic: '✨', label: 'Visite' },
+};
 
-function renderMap(state) {
-  if (!map) return;
-  const c = state.current;
-  if (typeof c.lat === 'number' && typeof c.lng === 'number') {
-    if (!marker) marker = L.marker([c.lat, c.lng]).addTo(map);
-    else marker.setLatLng([c.lat, c.lng]);
-    marker.bindPopup(`<b>${c.label || 'Ici'}</b>${c.note ? '<br>' + c.note : ''}`);
-    map.setView([c.lat, c.lng], 11, { animate: true });
-  }
-  // Tracé de la route (historique des arrêts, du plus ancien au plus récent)
-  const pts = [...state.stops].reverse().filter(s => typeof s.lat === 'number').map(s => [s.lat, s.lng]);
-  if (trail) trail.remove();
-  if (pts.length > 1) trail = L.polyline(pts, { color: '#BE3A2A', weight: 3, opacity: .7, dashArray: '6 6' }).addTo(map);
-}
+let STATE = null;
 
 // ── Rendu ───────────────────────────────────────────────────
-function fmtDate(iso) {
-  if (!iso) return '';
-  const d = new Date(iso);
-  return d.toLocaleString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-}
+function render(s) {
+  STATE = s;
+  const stages = s.stages || [];
+  const nb = stages.length;
+  const doneSet = new Set(s.done || []);
+  const cur = stages[s.currentStage] || stages[0];
 
-function render(state) {
-  // Bandeau live
-  const c = state.current;
-  document.getElementById('liveWhere').textContent = c.label || 'Pas encore parti';
-  document.getElementById('liveNote').textContent = c.note || '';
-  document.getElementById('liveTs').textContent = c.at ? 'Mis à jour ' + fmtDate(c.at) : 'En attente du départ';
+  // Barre de progression (compte les étapes validées)
+  const doneCount = doneSet.size;
+  const pct = nb ? Math.round((doneCount / nb) * 100) : 0;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progVan').style.left = pct + '%';
+  document.getElementById('progCount').textContent = `${doneCount} / ${nb}`;
+  document.getElementById('progPct').textContent = pct + ' %';
 
-  // Avancée jour par jour
-  const track = document.getElementById('track');
-  track.innerHTML = state.days.map(d => `
-    <div class="track-day ${d.status}">
-      <span class="badge">${d.status === 'done' ? '✓' : d.id}</span>
-      <div class="tinfo">
-        <div class="tdate">${d.date}</div>
-        <div class="ttitle">${d.title}</div>
+  // Étape en cours, en grand
+  const m = TYPE_META[cur.type] || { ic: '📍', label: cur.type };
+  const choice = (s.choices || {})[String(cur.id)];
+  document.getElementById('stageNow').innerHTML = `
+    <div class="sn-head">
+      <span class="sn-ic">${m.ic}</span>
+      <div>
+        <div class="sn-day">${cur.day} · <span class="sn-type">${m.label}</span></div>
+        <div class="sn-title">${cur.title}</div>
+        <div class="sn-sub">${cur.sub || ''}</div>
       </div>
-      <span class="tstat">${DAY_STATUS[d.status]}</span>
-    </div>`).join('');
+      <a class="maplink sn-map" href="https://maps.google.com/?q=${cur.lat},${cur.lng}" target="_blank" rel="noopener">Maps</a>
+    </div>
+    <div class="sn-options">
+      ${(cur.options || []).map((opt) => {
+        const chosen = choice === opt;
+        return `<button class="opt ${chosen ? 'chosen' : ''}" data-id="${cur.id}" data-opt="${encodeURIComponent(opt)}" ${PWD ? '' : 'disabled'}>
+          <span class="opt-mark">${chosen ? '✓' : '○'}</span>${opt}</button>`;
+      }).join('')}
+    </div>
+    ${PWD ? `<div class="sn-actions">
+        <button class="btn alt" id="prevStage" ${s.currentStage === 0 ? 'disabled' : ''}>← Étape précédente</button>
+        <button class="btn sol" id="validateStage">✓ Valider cette étape — le van avance</button>
+      </div>` :
+      `<div class="sn-live"><span class="live-dot"></span> Suivi en direct — l'équipage valide les étapes</div>`}
+  `;
 
-  // Éditeurs de jour (si déverrouillé)
+  // Choix d'option
   if (PWD) {
-    document.getElementById('dayEditors').innerHTML = state.days.map(d => `
-      <div class="row" style="align-items:center;margin:6px 0;">
-        <div style="flex:2;min-width:160px;"><strong>J${d.id}</strong> · ${d.title}</div>
-        <select data-day="${d.id}" style="flex:1;padding:7px;border:1px solid var(--line);border-radius:3px;">
-          <option value="todo" ${d.status === 'todo' ? 'selected' : ''}>À venir</option>
-          <option value="current" ${d.status === 'current' ? 'selected' : ''}>En cours</option>
-          <option value="done" ${d.status === 'done' ? 'selected' : ''}>Fait</option>
-        </select>
-      </div>`).join('');
-    document.querySelectorAll('#dayEditors select').forEach(sel => {
-      sel.addEventListener('change', () => {
-        post('setDayStatus', { id: Number(sel.dataset.day), status: sel.value });
-      });
+    document.querySelectorAll('#stageNow .opt').forEach((b) => {
+      b.addEventListener('click', () => post('choose', { id: Number(b.dataset.id), option: decodeURIComponent(b.dataset.opt) }));
     });
+    const v = document.getElementById('validateStage');
+    if (v) v.addEventListener('click', () => post('validate', {}));
+    const p = document.getElementById('prevStage');
+    if (p) p.addEventListener('click', () => post('goto', { index: Math.max(0, s.currentStage - 1) }));
   }
 
-  renderMap(state);
+  // Note d'équipage
+  const cn = document.getElementById('crewNote');
+  cn.innerHTML = s.note ? `<span class="mono">mot d'équipage</span><p>« ${s.note} »</p>` : '';
+  cn.style.display = s.note ? 'block' : 'none';
+
+  // Sélecteur de niveau
+  document.getElementById('levels').innerHTML = stages.map((st, i) => {
+    const done = doneSet.has(st.id);
+    const isCur = i === s.currentStage;
+    const mm = TYPE_META[st.type] || { ic: '📍' };
+    const cls = done ? 'done' : isCur ? 'current' : 'todo';
+    return `<button class="level ${cls}" data-index="${i}" ${PWD ? '' : 'disabled'}>
+      <span class="lv-ic">${done ? '✓' : mm.ic}</span>
+      <span class="lv-txt"><span class="lv-day">${st.day}</span><span class="lv-title">${st.title}</span></span>
+    </button>`;
+  }).join('');
+  if (PWD) {
+    document.querySelectorAll('#levels .level').forEach((b) => {
+      b.addEventListener('click', () => post('goto', { index: Number(b.dataset.index) }));
+    });
+  }
 }
 
 // ── API ─────────────────────────────────────────────────────
 async function load() {
-  try {
-    const r = await fetch('/api/state', { cache: 'no-store' });
-    render(await r.json());
-  } catch (e) { /* silencieux */ }
+  try { const r = await fetch('/api/state', { cache: 'no-store' }); render(await r.json()); } catch (e) {}
 }
-
 async function post(action, extra) {
   if (!PWD) return;
   const r = await fetch('/api/update', {
@@ -95,70 +107,30 @@ async function post(action, extra) {
   return j;
 }
 
-// ── Auth / édition ──────────────────────────────────────────
+// ── Auth ────────────────────────────────────────────────────
 function showEdit(on) {
   document.getElementById('lockView').classList.toggle('hide', on);
   document.getElementById('editView').classList.toggle('hide', !on);
 }
-
 document.getElementById('unlockBtn').addEventListener('click', async () => {
   const pwd = document.getElementById('pwd').value;
-  const msg = document.getElementById('authMsg');
-  const r = await fetch('/api/auth', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password: pwd }),
-  });
+  const r = await fetch('/api/auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: pwd }) });
   const j = await r.json();
-  if (j.ok) {
-    PWD = pwd;
-    sessionStorage.setItem('roadtrip_pwd', pwd);
-    msg.textContent = '';
-    showEdit(true);
-    load();
-  } else {
-    msg.textContent = ' Mot de passe incorrect';
-  }
+  if (j.ok) { PWD = pwd; sessionStorage.setItem('roadtrip_pwd', pwd); document.getElementById('authMsg').textContent = ''; showEdit(true); if (STATE) render(STATE); }
+  else document.getElementById('authMsg').textContent = ' Mot de passe incorrect';
 });
-
 document.getElementById('lockBtn').addEventListener('click', () => {
-  PWD = null; sessionStorage.removeItem('roadtrip_pwd');
-  document.getElementById('pwd').value = '';
-  showEdit(false); load();
+  PWD = null; sessionStorage.removeItem('roadtrip_pwd'); document.getElementById('pwd').value = ''; showEdit(false); if (STATE) render(STATE);
 });
-
-document.getElementById('useGps').addEventListener('click', () => {
-  const msg = document.getElementById('stopMsg');
-  if (!navigator.geolocation) { msg.textContent = ' GPS non dispo'; return; }
-  msg.textContent = ' Localisation…';
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      document.getElementById('stopLat').value = pos.coords.latitude.toFixed(5);
-      document.getElementById('stopLng').value = pos.coords.longitude.toFixed(5);
-      msg.textContent = ' Position récupérée ✓';
-    },
-    () => { msg.textContent = ' Échec GPS (autorise la localisation)'; },
-    { enableHighAccuracy: true, timeout: 10000 }
-  );
+document.getElementById('saveNote').addEventListener('click', () => {
+  post('setNote', { note: document.getElementById('noteInput').value });
 });
-
-document.getElementById('postStop').addEventListener('click', async () => {
-  const label = document.getElementById('stopLabel').value.trim();
-  const lat = parseFloat(document.getElementById('stopLat').value);
-  const lng = parseFloat(document.getElementById('stopLng').value);
-  const note = document.getElementById('stopNote').value.trim();
-  const msg = document.getElementById('stopMsg');
-  if (!label || isNaN(lat) || isNaN(lng)) { msg.textContent = ' Remplis lieu + coordonnées'; return; }
-  const j = await post('setCurrent', { label, lat, lng, note });
-  if (j && j.ok) {
-    msg.textContent = ' Point posé ✓';
-    document.getElementById('stopLabel').value = '';
-    document.getElementById('stopNote').value = '';
-  }
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if (confirm('Tout réinitialiser ? Le van repart de l\'étape 1.')) post('reset', {});
 });
 
 // ── Init ────────────────────────────────────────────────────
-initMap();
-load();
 if (PWD) showEdit(true);
-setInterval(load, 15000); // rafraîchit toutes les 15 s
+load();
+setInterval(load, 15000);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
