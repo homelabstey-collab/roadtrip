@@ -7,3 +7,12 @@ services:
     restart: unless-stopped
     ports:
       - "8095:80"
+    environment:
+      # Mot de passe d'édition partagé (les gars du van). À changer.
+      EDIT_PASSWORD: "pyrenees2026"
+    volumes:
+      # Persiste l'état du suivi (survit aux redéploiements)
+      - roadtrip_data:/app/data
+
+volumes:
+  roadtrip_data:

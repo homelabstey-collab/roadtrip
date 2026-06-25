@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suivi du voyage · Pyrénées en van 2026</title>
+<meta name="description" content="Suivi en direct du road-trip : où on en est, dernier point d'arrêt, avancée jour par jour.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232E4636'/%3E%3Cpath d='M6 24 L13 11 L17 18 L21 9 L26 24 Z' fill='%23ECE6D8'/%3E%3Cpath d='M13 11 L15 15 L11.5 15 Z M21 9 L23.5 15 L19 15 Z' fill='%23BE3A2A'/%3E%3C/svg%3E">
+<meta property="og:title" content="Suivi du voyage · Pyrénées en van 2026">
+<meta property="og:description" content="Où en est le van, en temps réel.">
+<meta property="og:image" content="/images/photo-05.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!-- Leaflet (carte open-source) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<section class="wrap" style="padding-top:34px;">
+  <div class="kicker"><span class="blaze"></span><span class="mono">En direct</span></div>
+  <h2 class="big">Où on en est</h2>
+
+  <!-- Bandeau position actuelle -->
+  <div class="live-banner">
+    <span class="live-dot"></span><span class="mono" style="color:#e8c9a0;">Dernier point d'arrêt</span>
+    <div class="where" id="liveWhere">…</div>
+    <div class="note" id="liveNote"></div>
+    <div class="ts" id="liveTs"></div>
+  </div>
+
+  <!-- Carte -->
+  <div id="map"></div>
+
+  <!-- Avancée jour par jour -->
+  <div class="track" id="track"></div>
+
+  <!-- Panneau d'édition (déverrouillé par mot de passe) -->
+  <div class="edit-panel" id="editPanel">
+    <h3>🔒 Espace équipage</h3>
+    <div id="lockView">
+      <p class="hint">Réservé aux gars du van pour mettre à jour le suivi. Les proches voient tout en lecture seule.</p>
+      <div class="field" style="max-width:320px;">
+        <label>Mot de passe équipage</label>
+        <input type="password" id="pwd" placeholder="••••••••">
+      </div>
+      <button class="btn" id="unlockBtn">Déverrouiller</button>
+      <span class="hint" id="authMsg"></span>
+    </div>
+
+    <div id="editView" class="hide">
+      <p class="hint" style="color:var(--pine);">✓ Déverrouillé — tes modifs sont visibles par tout le monde.</p>
+
+      <h3 style="margin-top:16px;font-size:1rem;">Mettre à jour l'avancée</h3>
+      <div id="dayEditors"></div>
+
+      <h3 style="margin-top:20px;font-size:1rem;">Poser un nouveau point d'arrêt</h3>
+      <div class="field"><label>Où êtes-vous ? (nom du lieu)</label><input type="text" id="stopLabel" placeholder="Ex : Col des Tentes"></div>
+      <div class="row">
+        <div class="field"><label>Latitude</label><input type="text" id="stopLat" placeholder="42.7136"></div>
+        <div class="field"><label>Longitude</label><input type="text" id="stopLng" placeholder="-0.0509"></div>
+      </div>
+      <div class="field"><label>Petit mot (optionnel)</label><input type="text" id="stopNote" placeholder="Météo top, on attaque la Brèche demain"></div>
+      <div class="row" style="max-width:520px;">
+        <button class="btn alt" id="useGps" type="button">📍 Utiliser ma position GPS</button>
+        <button class="btn sol" id="postStop" type="button">Poser le point</button>
+      </div>
+      <span class="hint" id="stopMsg"></span>
+
+      <p style="margin-top:18px;"><button class="btn alt" id="lockBtn" type="button">Verrouiller</button></p>
+    </div>
+  </div>
+</section>
+
+<div class="foot">Suivi live · Pyrénées en van · 10–13 août 2026 🏔️</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/js/nav.js"></script>
+<script src="/js/suivi.js"></script>
+</body>
+</html>
