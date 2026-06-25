@@ -14,50 +14,72 @@ const STATE_FILE = path.join(DATA_DIR, 'state.json');
 // Mot de passe d'édition partagé (les gars du van). Modifiable via env.
 const EDIT_PASSWORD = process.env.EDIT_PASSWORD || 'pyrenees2026';
 
-// ── Étapes du parcours (façon "niveaux de jeu") ─────────────
-// type : route | ravito | rando | manger | dodo | visite
-// Chaque étape a un lieu (GPS) + des "options" (propositions au choix).
+// ── Étapes du parcours (1 carte = 1 jour/lieu, avec sous-tâches) ──
+// task.type : destination | rando | manger | dodo | visite
+// Chaque tâche a un libellé + des options (propositions au choix).
 const STAGES = [
-  { id: 1,  day: 'J1 · Lun. 10', type: 'route',  title: 'Josse → Gavarnie', sub: '~190 km · ~3 h', lat: 42.7355, lng: -0.0110,
-    options: ['Plein eau / gasoil / courses AVANT de monter (rare et cher en altitude)'] },
-  { id: 2,  day: 'J1 · Lun. 10', type: 'rando',  title: 'Cirque → Grande Cascade', sub: '~9–11 km · +400 m · facile', lat: 42.6935, lng: -0.0045,
-    options: ['Sentier rive ouest (forêt) à l\'aller', 'Retour par l\'Hôtellerie du Cirque'] },
-  { id: 3,  day: 'J1 · Lun. 10', type: 'manger', title: 'Dîner à Gavarnie', sub: 'choisir une adresse', lat: 42.7333, lng: -0.0091,
-    options: ['La Kantine — burgers/raclette (la meilleure)', 'La Chaumière — planches, tartes myrtilles', 'Bar Claire Montagne — terrasse vue cirque'] },
-  { id: 4,  day: 'J1 · Lun. 10', type: 'dodo',   title: 'Nuit 1', sub: 'parking van', lat: 42.7136, lng: -0.0509,
-    options: ['Gavarnie / Gèdre village (sûr)', 'Col des Tentes 2208 m — départ Brèche, zéro route demain (⚠️ panneaux nuit à vérifier)'] },
+  {
+    id: 1, day: 'Jour 1 · Lun. 10 août', place: 'Gavarnie', img: '/images/photo-13.jpg',
+    lat: 42.7355, lng: -0.0110, program: { rando: 'Cirque → Grande Cascade', resto: 'La Kantine' },
+    tasks: [
+      { type: 'destination', label: 'Josse → Gavarnie', sub: '~190 km · ~3 h', options: ['Plein eau/gasoil/courses avant de monter'] },
+      { type: 'rando', label: 'Cirque → Grande Cascade', sub: '~9–11 km · +400 m · facile', options: ['Rive ouest (forêt) à l\'aller', 'Retour par l\'Hôtellerie du Cirque'] },
+      { type: 'manger', label: 'Dîner à Gavarnie', sub: 'choisir une adresse', options: ['La Kantine — la meilleure', 'La Chaumière — planches, tartes', 'Bar Claire Montagne — terrasse'] },
+      { type: 'dodo', label: 'Nuit 1', sub: 'parking van', options: ['Gavarnie / Gèdre village (sûr)', 'Col des Tentes 2208 m (zéro route demain)'] },
+    ],
+  },
+  {
+    id: 2, day: 'Jour 2 · Mar. 11 août', place: 'Brèche de Roland', img: '/images/photo-09.jpg',
+    lat: 42.6912, lng: -0.0343, program: { rando: 'Brèche de Roland (2807 m)', resto: 'Le Mouton Noir' },
+    tasks: [
+      { type: 'rando', label: 'Brèche de Roland (2807 m)', sub: '~12–14 km · +900 m · sportif+', options: ['Départ avant 8 h (parking + orages)', 'Bâtons — névé fréquent', 'Repli : Refuge des Espuguettes'] },
+      { type: 'manger', label: 'Dîner J2', sub: 'Gavarnie ou Luz', options: ['La Kantine (Gavarnie)', 'Le Mouton Noir (Luz)', 'Orika (Luz, gastro)'] },
+      { type: 'dodo', label: 'Nuit 2', sub: 'rester ou avancer', options: ['Col des Tentes / Gavarnie', 'Col du Tourmalet 2115 m', 'Aragnouet / Fabian'] },
+    ],
+  },
+  {
+    id: 3, day: 'Jour 3 · Mer. 12 août', place: 'Néouvielle', img: '/images/photo-05.jpg',
+    lat: 42.8436, lng: 0.1477, program: { rando: 'Lacs de Néouvielle', resto: 'Restaurant böbby' },
+    tasks: [
+      { type: 'rando', label: 'Lacs de Néouvielle', sub: '~10–12 km · +600 m · sportif', options: ['Boucle Aumar/Aubert/Laquettes', 'Version courte (~5 km)', 'Monter avant 9h30 (route régulée)'] },
+      { type: 'visite', label: 'Récup thermes', sub: 'Sensoria Rio, Saint-Lary', options: ['Ouvert mercredi 14h30–20h'] },
+      { type: 'manger', label: 'Dîner Saint-Lary', sub: 'choisir une table', options: ['Restaurant böbby — la meilleure', 'Brasserie ICC — terrasse', 'Le Balthazar — viandes/poissons'] },
+      { type: 'dodo', label: 'Nuit 3', sub: 'le plus à l\'ouest', options: ['Aragnouet / Fabian', 'Aire Saint-Lary ~10 € (douche)'] },
+    ],
+  },
+  {
+    id: 4, day: 'Jour 4 · Jeu. 13 août', place: 'Retour Josse', img: '/images/photo-10.jpg',
+    lat: 43.6409, lng: -1.2243, program: { rando: 'Tour de lac (optionnel)', resto: '—' },
+    tasks: [
+      { type: 'rando', label: 'Petite rando matin', sub: 'optionnel · tour de lac Orédon', options: ['Avant de plier', 'Ou on file direct'] },
+      { type: 'destination', label: 'Retour Josse + restitution', sub: '~200 km · ~2 h 30', options: ['Nettoyage + plein gasoil exigés', 'Prévoir ~1 h de battement'] },
+    ],
+  },
+];
 
-  { id: 5,  day: 'J2 · Mar. 11', type: 'rando',  title: 'Brèche de Roland (2807 m)', sub: '~12–14 km · +900 m · 6–7 h · sportif+', lat: 42.6912, lng: -0.0343,
-    options: ['Départ AVANT 8 h (parking + orages)', 'Bâtons — névé fréquent sous la brèche', 'Repli si météo : Refuge des Espuguettes (+700 m, plus sûr)'] },
-  { id: 6,  day: 'J2 · Mar. 11', type: 'manger', title: 'Dîner J2', sub: 'Gavarnie ou Luz', lat: 42.8730, lng: -0.0031,
-    options: ['Reste à Gavarnie (La Kantine ouverte mardi)', 'Le Mouton Noir, Luz — après-rando', 'Orika, Luz — gastro (OK mardi)'] },
-  { id: 7,  day: 'J2 · Mar. 11', type: 'dodo',   title: 'Nuit 2', sub: 'rester ou avancer', lat: 42.9083, lng: 0.1453,
-    options: ['Rester Col des Tentes / Gavarnie (peinard)', 'Avancer Col du Tourmalet 2115 m (spot mythique + Pic du Midi demain)', 'Aragnouet / Fabian — vallée d\'Aure tranquille'] },
-
-  { id: 8,  day: 'J3 · Mer. 12', type: 'rando',  title: 'Lacs de Néouvielle', sub: '~10–12 km · +600 m · sportif', lat: 42.8436, lng: 0.1477,
-    options: ['Boucle Aumar / Aubert / Laquettes + Col d\'Aubert', 'Version courte balade lacs (~5 km)', '⚠️ Monter avant 9h30 (route régulée), sinon navette Orédon ~8,50 €'] },
-  { id: 9,  day: 'J3 · Mer. 12', type: 'visite', title: 'Option Pic du Midi de Bigorre', sub: 'facultatif · si dodo Tourmalet', lat: 42.9095, lng: 0.1790,
-    options: ['Téléphérique La Mongie → 2877 m (~53 €/pers.)', 'À zapper si on a fait le Néouvielle'] },
-  { id: 10, day: 'J3 · Mer. 12', type: 'visite', title: 'Récup thermes', sub: 'Saint-Lary', lat: 42.8196, lng: 0.3211,
-    options: ['Sensoria Rio — ouvert mercredi 14h30–20h (jambes lourdes)'] },
-  { id: 11, day: 'J3 · Mer. 12', type: 'manger', title: 'Dîner Saint-Lary', sub: 'choisir une table', lat: 42.8211, lng: 0.3271,
-    options: ['Restaurant böbby — la meilleure (19 h)', 'Brasserie ICC — valeur sûre, terrasse', 'Le Balthazar — viandes/poissons', '⚠️ La Grange fermée le mercredi'] },
-  { id: 12, day: 'J3 · Mer. 12', type: 'dodo',   title: 'Nuit 3', sub: 'le plus à l\'ouest possible', lat: 42.7906, lng: 0.2605,
-    options: ['Aragnouet / Fabian — calme', 'Aire Saint-Lary ~10 € (eau + vidange + douche avant retour)'] },
-
-  { id: 13, day: 'J4 · Jeu. 13', type: 'rando',  title: 'Petite rando matin', sub: 'optionnel', lat: 42.8253, lng: 0.1618,
-    options: ['Tour de lac près d\'Orédon avant de plier', 'Ou on file direct si fatigue'] },
-  { id: 14, day: 'J4 · Jeu. 13', type: 'route',  title: 'Retour Josse', sub: '~200 km · ~2 h 30', lat: 43.6409, lng: -1.2243,
-    options: ['Nettoyage + plein gasoil EXIGÉS à la restitution', 'Prévoir ~1 h de battement'] },
+// ── Budget (estimation + suivi des dépenses) ────────────────
+const BUDGET_ESTIMATE = [
+  { cat: 'Van (location 4 j)', amount: 542 },
+  { cat: 'Carburant', amount: 100 },
+  { cat: 'Courses / picnics', amount: 120 },
+  { cat: 'Restos (3 dîners)', amount: 180 },
+  { cat: 'Thermes Sensoria', amount: 60 },
+  { cat: 'Parkings / navettes', amount: 30 },
+  { cat: 'Divers / marge', amount: 50 },
 ];
 
 const DEFAULT_STATE = {
   updatedAt: null,
-  currentStage: 0,        // index de l'étape en cours (0 = première)
-  done: [],               // ids des étapes validées
-  choices: {},            // { stageId: "option choisie" }
-  note: '',               // petit mot d'équipage en cours
-  stages: STAGES,         // embarqué pour que le front ait tout
+  tasksDone: {},   // { "stageId-taskIdx": true }
+  choices: {},     // { "stageId-taskIdx": "option choisie" }
+  note: '',
+  noteAt: null,
+  stages: STAGES,
+  budget: {
+    people: 4,
+    estimate: BUDGET_ESTIMATE,
+    expenses: [],  // { id, label, cat, amount, at }
+  },
 };
 
 // ── Helpers état ────────────────────────────────────────────
@@ -135,30 +157,38 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 401, { ok: false, error: 'Mot de passe incorrect' });
     }
     const s = readState();
-    s.stages = STAGES; // garde l'itinéraire toujours à jour côté serveur
-    if (!Array.isArray(s.done)) s.done = [];
+    s.stages = STAGES; // itinéraire toujours à jour côté serveur
+    s.budget = s.budget || {};
+    s.budget.estimate = BUDGET_ESTIMATE; // estimation figée côté serveur
+    if (!s.tasksDone) s.tasksDone = {};
     if (!s.choices) s.choices = {};
+    if (!Array.isArray(s.budget.expenses)) s.budget.expenses = [];
     const a = body.action;
-    const nb = STAGES.length;
 
-    if (a === 'validate') {
-      // Valide l'étape en cours → avance le van à la suivante
-      const cur = STAGES[s.currentStage];
-      if (cur && !s.done.includes(cur.id)) s.done.push(cur.id);
-      s.currentStage = Math.min(s.currentStage + 1, nb - 1);
-    } else if (a === 'goto') {
-      // Sélecteur de niveau : aller à une étape précise (revenir / sauter)
-      const idx = Number(body.index);
-      if (idx >= 0 && idx < nb) s.currentStage = idx;
-    } else if (a === 'toggleDone') {
-      // (Dé)valider une étape précise depuis le sélecteur
-      const id = Number(body.id);
-      s.done = s.done.includes(id) ? s.done.filter((x) => x !== id) : [...s.done, id];
+    if (a === 'toggleTask') {
+      // Coche/décoche une sous-tâche (clé "stageId-taskIdx")
+      const key = `${Number(body.stage)}-${Number(body.task)}`;
+      if (s.tasksDone[key]) delete s.tasksDone[key];
+      else s.tasksDone[key] = true;
     } else if (a === 'choose') {
-      // Choisir une proposition pour une étape (ex: quel resto)
-      s.choices[String(body.id)] = String(body.option || '').slice(0, 120);
+      const key = `${Number(body.stage)}-${Number(body.task)}`;
+      s.choices[key] = String(body.option || '').slice(0, 120);
     } else if (a === 'setNote') {
       s.note = String(body.note || '').slice(0, 280);
+      s.noteAt = new Date().toISOString();
+    } else if (a === 'addExpense') {
+      s.budget.expenses.unshift({
+        id: Date.now(),
+        label: String(body.label || '').slice(0, 60),
+        cat: String(body.cat || 'Divers').slice(0, 30),
+        amount: Math.max(0, Number(body.amount) || 0),
+        at: new Date().toISOString(),
+      });
+      s.budget.expenses = s.budget.expenses.slice(0, 200);
+    } else if (a === 'delExpense') {
+      s.budget.expenses = s.budget.expenses.filter((e) => e.id !== Number(body.id));
+    } else if (a === 'setPeople') {
+      s.budget.people = Math.max(1, Math.min(12, Number(body.people) || 4));
     } else if (a === 'reset') {
       return sendJson(res, 200, writeState({ ...DEFAULT_STATE }));
     } else {

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budget · Pyrénées en van 2026</title>
+<meta name="description" content="Estimation et suivi du budget du road-trip : prévisionnel par poste, dépenses réelles, reste à dépenser, par personne.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232E4636'/%3E%3Cpath d='M6 24 L13 11 L17 18 L21 9 L26 24 Z' fill='%23ECE6D8'/%3E%3Cpath d='M13 11 L15 15 L11.5 15 Z M21 9 L23.5 15 L19 15 Z' fill='%23BE3A2A'/%3E%3C/svg%3E">
+<meta property="og:title" content="Budget · Pyrénées en van 2026">
+<meta property="og:description" content="Estimation et suivi des dépenses du road-trip.">
+<meta property="og:image" content="/images/photo-10.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<section class="wrap" style="padding-top:30px;">
+  <div class="kicker"><span class="blaze"></span><span class="mono">Intendance</span></div>
+  <h2 class="big">Le budget</h2>
+  <p class="hint" style="margin-top:4px;">Estimation prévisionnelle et suivi des dépenses réelles. L'équipage ajoute les dépenses au fil du trip ; tout le monde voit le total.</p>
+
+  <!-- Chiffres clés -->
+  <div class="budget-kpis">
+    <div class="kpi"><div class="kpi-k mono">Estimé total</div><div class="kpi-v" id="kpiEst">—</div></div>
+    <div class="kpi"><div class="kpi-k mono">Dépensé réel</div><div class="kpi-v" id="kpiSpent">—</div></div>
+    <div class="kpi"><div class="kpi-k mono">Reste estimé</div><div class="kpi-v" id="kpiLeft">—</div></div>
+    <div class="kpi accent"><div class="kpi-k mono">Par personne</div><div class="kpi-v" id="kpiPer">—</div></div>
+  </div>
+
+  <!-- Jauge dépensé / estimé -->
+  <div class="budget-gauge">
+    <div class="gauge-bar"><div class="gauge-fill" id="gaugeFill"></div></div>
+    <div class="gauge-meta mono"><span id="gaugeTxt">0 € / 0 €</span><span id="gaugePct">0 %</span></div>
+  </div>
+</section>
+
+<!-- Estimation par poste -->
+<section class="wrap" style="padding-top:6px;">
+  <h3 style="font-size:1.15rem;margin-bottom:8px;">Estimation prévisionnelle</h3>
+  <table class="bud-table" id="estTable"></table>
+</section>
+
+<!-- Dépenses réelles -->
+<section class="wrap" style="padding-top:6px;">
+  <h3 style="font-size:1.15rem;margin-bottom:8px;">Dépenses réelles</h3>
+  <div id="expList"></div>
+  <p class="hint" id="expEmpty" style="display:none;">Aucune dépense enregistrée pour l'instant.</p>
+</section>
+
+<!-- Panneau équipage -->
+<section class="wrap" style="padding-top:6px;">
+  <div class="edit-panel" id="editPanel">
+    <h3>🔒 Espace équipage</h3>
+    <div id="lockView">
+      <p class="hint">Réservé aux gars du van pour ajouter les dépenses.</p>
+      <div class="field" style="max-width:320px;"><label>Mot de passe équipage</label><input type="password" id="pwd" placeholder="••••••••"></div>
+      <button class="btn" id="unlockBtn">Déverrouiller</button>
+      <span class="hint" id="authMsg"></span>
+    </div>
+    <div id="editView" class="hide">
+      <p class="hint" style="color:var(--pine);">✓ Déverrouillé</p>
+      <h3 style="font-size:1rem;margin-top:10px;">Ajouter une dépense</h3>
+      <div class="row">
+        <div class="field" style="flex:2;"><label>Quoi ?</label><input type="text" id="expLabel" placeholder="Plein gasoil, courses Carrefour…"></div>
+        <div class="field"><label>Catégorie</label>
+          <select id="expCat">
+            <option>Van</option><option>Carburant</option><option>Courses</option>
+            <option>Resto</option><option>Activité</option><option>Parking</option><option>Divers</option>
+          </select>
+        </div>
+        <div class="field"><label>Montant €</label><input type="number" id="expAmount" placeholder="42" min="0" step="0.01"></div>
+      </div>
+      <button class="btn sol" id="addExp" type="button">+ Ajouter la dépense</button>
+      <span class="hint" id="addMsg"></span>
+
+      <div class="field" style="max-width:180px;margin-top:18px;"><label>Nombre de personnes</label><input type="number" id="people" min="1" max="12" value="4"></div>
+      <button class="btn alt" id="savePeople" type="button">Mettre à jour</button>
+
+      <p style="margin-top:16px;"><button class="btn alt" id="lockBtn" type="button">Verrouiller</button></p>
+    </div>
+  </div>
+</section>
+
+<div class="foot">Budget · Pyrénées en van · 10–13 août 2026 🏔️</div>
+
+<script src="/js/nav.js"></script>
+<script src="/js/budget.js"></script>
+</body>
+</html>
