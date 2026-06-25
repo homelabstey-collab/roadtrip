@@ -90,8 +90,29 @@ function ensureData() {
   }
 }
 function readState() {
-  try { return JSON.parse(fs.readFileSync(STATE_FILE, 'utf-8')); }
-  catch { return { ...DEFAULT_STATE }; }
+  let raw;
+  try { raw = JSON.parse(fs.readFileSync(STATE_FILE, 'utf-8')); }
+  catch { raw = {}; }
+  // Ancien format (avait "days"/"stops") → on repart propre
+  if (raw.days || raw.stops || !raw.stages) {
+    raw = {
+      updatedAt: raw.updatedAt || null,
+      tasksDone: raw.tasksDone && !raw.days ? raw.tasksDone : {},
+      choices: raw.choices && !raw.days ? raw.choices : {},
+      note: raw.note && !raw.days ? raw.note : '',
+      noteAt: raw.noteAt || null,
+      budget: { people: 4, estimate: BUDGET_ESTIMATE, expenses: [] },
+    };
+  }
+  // Toujours injecter l'itinéraire + estimation à jour (source de vérité = le code)
+  raw.stages = STAGES;
+  raw.budget = raw.budget || {};
+  raw.budget.people = raw.budget.people || 4;
+  raw.budget.estimate = BUDGET_ESTIMATE;
+  if (!Array.isArray(raw.budget.expenses)) raw.budget.expenses = [];
+  if (!raw.tasksDone) raw.tasksDone = {};
+  if (!raw.choices) raw.choices = {};
+  return raw;
 }
 function writeState(s) {
   s.updatedAt = new Date().toISOString();
