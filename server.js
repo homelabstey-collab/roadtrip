@@ -19,7 +19,7 @@ const EDIT_PASSWORD = process.env.EDIT_PASSWORD || 'pyrenees2026';
 // Chaque tâche a un libellé + des options (propositions au choix).
 const STAGES = [
   {
-    id: 1, day: 'Jour 1 · Lun. 10 août', place: 'Gavarnie', img: '/images/photo-13.jpg',
+    id: 1, day: 'Jour 1 · Mar. 11 août', place: 'Gavarnie', img: '/images/photo-13.jpg',
     lat: 42.7355, lng: -0.0110, program: { rando: 'Cirque → Grande Cascade', resto: 'La Kantine' },
     tasks: [
       { type: 'destination', label: 'Josse → Gavarnie', sub: '~190 km · ~3 h', options: ['Plein eau/gasoil/courses avant de monter'] },
@@ -31,23 +31,23 @@ const STAGES = [
     ],
   },
   {
-    id: 2, day: 'Jour 2 · Mar. 11 août', place: 'Brèche de Roland', img: '/images/photo-09.jpg',
+    id: 2, day: 'Jour 2 · Mer. 12 août', place: 'Brèche de Roland', img: '/images/photo-09.jpg',
     lat: 42.6912, lng: -0.0343, program: { rando: 'Brèche de Roland (2807 m)', resto: 'Le Mouton Noir' },
     tasks: [
       { type: 'rando', label: 'Brèche de Roland (2807 m)', sub: '~12–14 km · +900 m · sportif+', options: ['Départ avant 8 h (parking + orages)', 'Bâtons — névé fréquent', 'Repli : Refuge des Espuguettes'],
         links: [{ label: 'Départ (Col des Tentes)', url: 'https://maps.google.com/?q=42.7136,-0.0509' }, { label: 'Topo', url: 'https://www.google.com/search?q=randonn%C3%A9e+br%C3%A8che+de+Roland+col+des+tentes' }] },
-      { type: 'manger', label: 'Dîner J2', sub: 'Gavarnie ou Luz', options: ['La Kantine (Gavarnie)', 'Le Mouton Noir (Luz)', 'Orika (Luz, gastro)'] },
+      { type: 'manger', label: 'Dîner J2 (mercredi)', sub: 'Luz — La Kantine & Orika fermés mer', options: ['Le Mouton Noir (Luz) — sûr', '⚠️ La Kantine fermée mercredi', '⚠️ Orika fermé mer/jeu'] },
       { type: 'dodo', label: 'Nuit 2', sub: 'rester ou avancer', options: ['Col des Tentes / Gavarnie', 'Col du Tourmalet 2115 m', 'Aragnouet / Fabian'],
         links: [{ label: 'Col du Tourmalet', url: 'https://maps.google.com/?q=42.9083,0.1453' }, { label: 'Park4Night', url: 'https://park4night.com/fr/map?lat=42.9083&lng=0.1453&zoom=12' }] },
     ],
   },
   {
-    id: 3, day: 'Jour 3 · Mer. 12 août', place: 'Néouvielle', img: '/images/photo-05.jpg',
+    id: 3, day: 'Jour 3 · Jeu. 13 août', place: 'Néouvielle', img: '/images/photo-05.jpg',
     lat: 42.8436, lng: 0.1477, program: { rando: 'Lacs de Néouvielle', resto: 'Restaurant böbby' },
     tasks: [
       { type: 'rando', label: 'Lacs de Néouvielle', sub: '~10–12 km · +600 m · sportif', options: ['Boucle Aumar/Aubert/Laquettes', 'Version courte (~5 km)', 'Monter avant 9h30 (route régulée)'],
         links: [{ label: 'Lac d\'Orédon', url: 'https://maps.google.com/?q=42.8253,0.1618' }, { label: 'Topo', url: 'https://www.google.com/search?q=randonn%C3%A9e+lacs+du+N%C3%A9ouvielle+Aumar+Aubert' }] },
-      { type: 'visite', label: 'Récup thermes', sub: 'Sensoria Rio, Saint-Lary', options: ['Ouvert mercredi 14h30–20h'],
+      { type: 'visite', label: 'Récup thermes', sub: 'Sensoria Rio, Saint-Lary', options: ['⚠️ Fermé le jeudi — à vérifier sur place, sinon récup demain'],
         links: [{ label: 'Sensoria Rio', url: 'https://maps.google.com/?q=42.8196,0.3211' }] },
       { type: 'manger', label: 'Dîner Saint-Lary', sub: 'choisir une table', options: ['Restaurant böbby — la meilleure', 'Brasserie ICC — terrasse', 'Le Balthazar — viandes/poissons'] },
       { type: 'dodo', label: 'Nuit 3', sub: 'le plus à l\'ouest', options: ['Aragnouet / Fabian', 'Aire Saint-Lary ~10 € (douche)'],
@@ -55,7 +55,7 @@ const STAGES = [
     ],
   },
   {
-    id: 4, day: 'Jour 4 · Jeu. 13 août', place: 'Retour Josse', img: '/images/photo-10.jpg',
+    id: 4, day: 'Jour 4 · Ven. 14 août', place: 'Retour Josse', img: '/images/photo-10.jpg',
     lat: 43.6409, lng: -1.2243, program: { rando: 'Tour de lac (optionnel)', resto: '—' },
     tasks: [
       { type: 'rando', label: 'Petite rando matin', sub: 'optionnel · tour de lac Orédon', options: ['Avant de plier', 'Ou on file direct'],
