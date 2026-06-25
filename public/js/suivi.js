@@ -70,6 +70,10 @@ function render(s) {
               <div class="task-opts">
                 ${tk.options.map((opt) => `<button class="topt ${choice === opt ? 'sel' : ''}" data-stage="${st.id}" data-task="${t}" data-opt="${encodeURIComponent(opt)}" ${PWD && !locked ? '' : 'disabled'}>${choice === opt ? '✓ ' : ''}${opt}</button>`).join('')}
               </div>` : (tk.options && tk.options[0] ? `<div class="task-single">${tk.options[0]}</div>` : '')}
+            ${tk.links && tk.links.length ? `
+              <div class="task-links">
+                ${tk.links.map((lk) => `<a class="tlink" href="${lk.url}" target="_blank" rel="noopener">${lk.label} ↗</a>`).join('')}
+              </div>` : ''}
           </div>
         </div>`;
     }).join('');
