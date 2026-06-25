@@ -135,6 +135,11 @@ const MIME = {
   '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png',
   '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.webmanifest': 'application/manifest+json',
 };
+// Cache : html/js/css → toujours revalider (frais après chaque deploy) ; images → cache 1 j
+function cacheHeader(ext) {
+  if (['.jpg', '.jpeg', '.png', '.svg', '.ico'].includes(ext)) return 'public, max-age=86400';
+  return 'no-cache, must-revalidate';
+}
 function serveStatic(req, res) {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
   if (urlPath === '/') urlPath = '/index.html';
@@ -142,17 +147,18 @@ function serveStatic(req, res) {
   if (!filePath.startsWith(PUBLIC_DIR)) { res.writeHead(403); return res.end('Forbidden'); }
   fs.readFile(filePath, (err, data) => {
     if (err) {
-      // SPA-ish : pages sans extension → essaie .html
+      // pages sans extension → essaie .html
       if (!path.extname(filePath)) {
         return fs.readFile(filePath + '.html', (e2, d2) => {
           if (e2) { res.writeHead(404); return res.end('Not found'); }
-          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache, must-revalidate' });
           res.end(d2);
         });
       }
       res.writeHead(404); return res.end('Not found');
     }
-    res.writeHead(200, { 'Content-Type': MIME[path.extname(filePath)] || 'application/octet-stream' });
+    const ext = path.extname(filePath);
+    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream', 'Cache-Control': cacheHeader(ext) });
     res.end(data);
   });
 }
