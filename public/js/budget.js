@@ -18,7 +18,8 @@ function render(s) {
   document.getElementById('kpiEst').textContent = eur(est);
   document.getElementById('kpiSpent').textContent = eur(spent);
   document.getElementById('kpiLeft').textContent = eur(left);
-  document.getElementById('kpiPer').textContent = eur(est / people) + ' /pers.';
+  // Par personne = sur le DÉPENSÉ RÉEL (ce que chacun doit vraiment)
+  document.getElementById('kpiPer').textContent = eur(spent / people) + ' /pers.';
 
   // jauge dépensé / estimé
   const pct = est ? Math.min(100, Math.round((spent / est) * 100)) : 0;
